@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Hendrik (Jake) Ombach</title>
+    <link>https://hjombach.com/categories/</link>
+    <description>Recent content in Categories on Hendrik (Jake) Ombach</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://hjombach.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>syntax</title>
+      <link>https://hjombach.com/categories/syntax/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hjombach.com/categories/syntax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>themes</title>
+      <link>https://hjombach.com/categories/themes/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://hjombach.com/categories/themes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>https://hjombach.com/categories/about/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>environmental</title>
+      <link>https://hjombach.com/categories/environmental/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/environmental/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nba_betting</title>
+      <link>https://hjombach.com/categories/nba_betting/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/nba_betting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>photography</title>
+      <link>https://hjombach.com/categories/photography/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/photography/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>projects</title>
+      <link>https://hjombach.com/categories/projects/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>publications</title>
+      <link>https://hjombach.com/categories/publications/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/publications/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>resume</title>
+      <link>https://hjombach.com/categories/resume/</link>
+      <pubDate>Sun, 02 Oct 2016 22:55:05 -0400</pubDate>
+      
+      <guid>https://hjombach.com/categories/resume/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
