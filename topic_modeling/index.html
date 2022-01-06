@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Hendrik (Jake) Ombach">
+    <link rel="shortcut icon" type="image/x-icon" href="https://hjombach.com/img/favicon.ico">
+    <title>Topic Modeling | Hendrik (Jake) Ombach</title>
+    <meta name="description" content="Northeastern University
+Masters in Data Science 2022">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+    <link rel="preload stylesheet" href="/css/main.min.css" as="style">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old">
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+  </head>
+  <body>
+    <div id="content">
+  
+  <div class="container mb-3">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="https://hjombach.com/">
+        <i class="fa fa-home"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar">
+        <i class="fa fa-bars"></i>
+      </button>
+
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          
+            
+              <li class="nav-item">
+                <li><a class="nav-link" href="/projects/">DATA SCIENCE PROJECTS</a></li>
+              </li>
+            
+              <li class="nav-item">
+                <li><a class="nav-link" href="/publications/">PUBLICATIONS</a></li>
+              </li>
+            
+              <li class="nav-item">
+                <li><a class="nav-link" href="/resume/">RESUME</a></li>
+              </li>
+            
+              <li class="nav-item">
+                <li><a class="nav-link" href="/about/">ABOUT ME</a></li>
+              </li>
+            
+              <li class="nav-item">
+                <li><a class="nav-link" href="/photography/">PHOTOGRAPHY</a></li>
+              </li>
+            
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+  <head>
+     <style>
+        table, th, td {
+        border-collapse: collapse;
+        }
+        th, td {
+        padding: 10px;
+        }
+        img {
+        border: 1px solid #555;
+        }
+     </style>
+  </head>
+
+  <html lang="en-us">
+     <body>
+
+       <h4 style="text-align:center;"><br>
+         Investigating Bias Between Popular News Sources with Unsupervised<br>
+         Topic Modeling and Sentiment Analysis.
+       </h4>
+       <div class="container">
+         <p style = "text-align:left;"><br>All analyses done using Python.</p>
+         <h4 style="text-align:center;">Background</h4>
+          <p style = "text-align:left;">
+            The media plays a vital role in society, keeping people informed and educated.
+            However news is always presented through the perspective of the educator, naturally
+            leading to informational bias. It's widely accepted throughout the United States that
+            the majority of mainstream news sources display political bias, with the majority of
+            sources accused of displaying bias in favor of liberal idealogy.
+            <br><br>
+            For this project I aimed to evaluate the news headlines of six mainstream media outlets
+            in America to investigate whether different sources display differing sentiments when
+            covering the same topics. Additionally, I was curious whether or not news outlets are
+            overly subjective in their presentation of events, instead of 'sticking to the facts'.
+            The algorithms used in this project allowed me to investigate both the sentiment and objectivity of news headlines.
+          </p>
+       </div>
+
+       <h4 style="text-align:center;">Data Collection</h4>
+       <div class="container">
+         <p style="text-align:left;">
+             <b>News Articles</b><br><br>
+             The datasets used for this project are the NELA-GT-2018, 2019, and 2020 datasets from the Harvard Dataverse.
+             For my investigation, I filtered the data to include only articles published by
+             six popular news sources in the United States: CBS, CNN, Fox News, The New York Times, USA Today,
+             and the Washington Post. Due to the size of the dataset I randomly selected 3,000 articles from each news source that fell within this
+             time period. Below is a snapshot of the data prior to any text preprocessing.
+             <br>
+          </p>
+            <img src="/img/topic_modeling/data_preview.png" style="width:850px;"><br>
+            <br>
+           <p style="text-align:left;">
+             Also, at this time I've decided to only analyze news headlines. Analyzing the article contents will
+             be something I'll continue to explore, however due to the length of the text data, labeling an article's sentiment is
+             difficult as there are often many different sentiments expressed throughout an article, as well as the potential for
+             multiple topics to be discussed. Thus for simplicity I've presented only results from the analysis of headlines.
+             <br><br>
+         </p>
+       </div>
+
+       <h4 style="text-align:center;">Data Preparation</h4>
+       <div class="container">
+         <p style="text-align:left;">
+           <b>Text Preprocessing</b><br><br>
+           The functions used to preprocess the text were available NLTK library.<br><br>
+           To prepare the data, I performed the standard text preprocessing steps prior to
+           passing the data into my models. This included stop word removal, contraction
+           expansion, converting to lowercase, word lemmatization, followed by word
+           tokenization.  <br><br>
+           The Gensim package was then used to create a dictionary of tokens. The dictionary was
+           subsequently filtered to exclude any tokens that appeared in less than 15 headlines and
+           more than 50% of the headlines, indicating they may not be beneficial to separate topics
+           due their frequency. <br><br>
+           Following the text preprocessing, I created two different corpus objects to pass into my
+           topic models. These were represented by the commonly used Bag of Words and Term Frequency
+           - Inverse Document Frequency matrices.
+        </p>
+          <br>
+            <hr>
+          <br>
+       </div>
+
+        <h4 style="text-align:center;">Topic Modeling</h4>
+        <div class="container">
+          <p style="text-align:left;">
+            <br>
+            <b>Latent Dirichlet Allocation (LDA)</b><br><br>
+            LDA is an unsupervised topic modeling algorithm. It assumes text data is a mixture of topics
+            which themselves have probabilities corresponding to specific words. Thus the representation of each
+            topic is a combination  of words, instead of a single word. The LDA algorithm evaluates the words
+            in each document and labels each document as a combination of topics which sum to one. The document can
+            then be assigned to the topic which composes the majority of the document. I've read conflicting opinions
+            on whether or not using the TF-IDF corpus as input into LDA models is appropriate,
+            however when trying it out I felt that it performed better than the Bag of Words corpus.
+            <br><br>
+            <b>Latent Semantic Indexing (LSI)</b><br><br>
+            LSI is another unsupervised topic modeling algorithm to learn hidden topics in text.
+            It reduces the dimensionality of
+            the corpus matrix via Singular Value Decomposition into a 'k' dimensional matrix, where k is the number of topics for the
+            document set. The rows of this matrix represents document vectors with each column (topic) coordinate
+            representing the role that topic plays in that document. Similar documents (in terms of topics)
+            are thus nearer to each other within the k-dimensional space. The output of the LSI algorithm
+            is different than the LDA models, in that it does not provide dominant topics for each document. It
+            provides an overall set of topics that encompass the document set and groups similar documents together in space.
+            <br><br>
+          </p>
+        </div>
+
+        <h4 style="text-align:center;">Topic Modeling Results</h4>
+        <div class="container">
+          <p style="text-align:left;">
+            <br><br>
+            <b>Parameter Selection</b><br><br>
+            For each model I used the coherence score for each topic number to evaluate
+            the model performance. In general, the higher the coherence the better the model.
+            Additionally, the LDA models can be evaluated with the
+            perplexity measure which I further evaluated. Perplexity, on the other hand, is
+            smaller in better performing models.
+          </p>
+        </div>
+
+        <table style="margin-left:auto;margin-right:auto;">
+          <tr>
+            <td width="420">
+              <img src="/img/topic_modeling/Coherence Comparisons.png" style="width:360px;">
+            </td>
+            <td width="420">
+              <img src="/img/topic_modeling/LDA - Perplexity Scores.png" style="width:375px;"><br>
+            </td>
+          </tr>
+        </table>
+
+        <div class="container">
+          <p style="text-align:left;">
+            Because these models are unsupervised, however, its important to visually inspect the
+            created models by each algorithm. After doing this, I decided to select 35 topics for
+            both LDA models, and 30 topics for the LSI model.
+          </p>
+        </div>
+
+        <div class="container">
+          <p style="text-align:left;">
+            <br><b>Topics</b><br><br>
+            Each model produced the number of specified topics. As mentioned above, the
+            LDA models assign each document to a specific topic, whereas the LSI model provides
+            a set of topics for the entire document set. Below are snapshots of the topics
+            output from each model. Below these snapshots is an interactive visualization of the LDA TF-IDF
+            topic model using the Pyldavis package from the Gensim Library. It uses principal
+            component analysis to reduce the feature space and plot the topics onto 2-D space. This
+            visualization indicates how well the topics separate. The goal is to minimize the overlap
+            between different topics. There is some overlap within my visualization, however for this
+            project I felt comfortable continuing with the model. 
+            <br><br>
+          </p>
+        </div>
+
+        <table style="margin-left:auto;margin-right:auto;">
+          <tr>
+            <td width="420">
+              <b>Most Frequent Topics from the LDA Bag of Words Model:</b>
+              <img src="/img/topic_modeling/LDA BoW Topics.png" style="width:700px;">
+              <br><br>
+            </td>
+          </tr>
+          <tr>
+            <td width="420">
+              <b>Most Frequent Topics from the LDA TF-IDF Model:</b>
+              <img src="/img/topic_modeling/LDA TFIDF Topics.png" style="width:700px;">
+              <br><br>
+            </td>
+          </tr>
+          <tr>
+            <td width="420">
+              <b>First Five Topics from the LSA TF-IDF Model:</b>
+              <img src="/img/topic_modeling/LSA Topics.png" style="width:700px;">
+            </td>
+          </tr>
+        </table>
+        <br><br>
+
+        <h4 style="text-align:center;">Visualizing the LDA TF-IDF Topic Model</h4>
+        <br>
+        <table style="margin-left:auto;margin-right:auto;">
+          <tr>
+            <td width="420">
+              <object data="https://hjombach.github.io/"
+              width="1200" height="800" border="1" >
+              </object>
+            </td>
+          </tr>
+        </table>
+
+        <div class="container">
+          <br>
+          <hr>
+        <h4 style="text-align:center;"><br>Sentiment Analysis</h4>
+          <p style="text-align:left;">
+            <br>
+            Before performing sentiment analysis I looked through the topics output by the LDA TF-IDF topic
+            model and selected 5 topics that I thought may present conflicting opinions between different
+            news sources. I then used two sentiment analysis algorithms (VADER and TextBlob) to evaluate
+            the news headlines within my dataset.
+            <br><br>
+            <b>Valence Aware Dictionary and sEntiment Reasoner (VADER)</b><br><br>
+            VADER is a commonly used lexicon and rule-based algorithm, which was initially developed
+            for analysis of social media posts, however has shown to perform well with other types of text.
+            To perform sentiment analysis, I passed in the
+            unprocessed headlines, and the VADER algorithm performs the preprocessing steps itself. These
+            preprocessing steps are comparable to the steps I performed for topic modeling above.
+            <br><br>
+            VADER uses a pre-defined dictionary that contains emotionally defined words with associated weights
+            defined by the strength or intensity of the word. Examples of positive words might 'great', 'amazing',
+            and 'beautiful', but also terms such as 'bad ass' are accounted for in the
+            dictionary and noted as positive. VADER also accounts for negation words such as
+            'not', which can flip the direction of the sentiment in a text.
+            <br><br>
+            The algorithm evaluates the combination of positive, neutral, and negatively defined terms and
+            outputs an overall polarity score between [-1, 1]. Scores &#60; -.05 are indicate
+            a negative sentiment, whereas scores &#62; 0.05 indicate positive sentiment. Scores within
+            [-0.05, 0.05] are define as neutral sentiments.
+            <br><br>
+            <br><b>TextBlob</b><br><br>
+            TextBlob is another lexicon and rule-based algorithm. It utilizes the NLTK and pattern
+            library to perform a wide variety of NLP tasks. For the sentiment analysis, it largely
+            performs the same steps as the VADER algorithm, however uses a different dictionary with the
+            defined terms and weights.
+            <br><br>
+            In addition to the ability to evaluate sentiments in given texts, TextBlob can evaluate the
+            objectivity of given text which I do in this project.
+          </p>
+        </div>
+
+        <h4 style="text-align:center;">Sentiment Analysis Results</h4>
+
+        <div class="container">
+          <p style="text-align:left;">
+            <b> VADER </b><br><br>
+            The output for the VADER is presented in the figures below. Displayed is the overall
+            sentiments of all given headlines in the data as well as the sentiments of five topics
+            selected from the LDA TF-IDF topic model. The sentiment graphs for each topic are
+            adjusted for the number of headlines published within that topic by each source to
+            more appropriately compare.
+            <br><br>
+            For the most part, it seems that the majority sentiment is actually neutral, which is somewhat
+            surprising to me. However this is using the predefined threshold of 0.05 to define
+            neutrally labeled sentiments. This threshold can be increased or decreased, resulting
+            in headlines being labeled as neutral more often or less often, respectively.
+            <br><br>
+            Overall, it does appear that USA Today provides the most frequently positive headlines, whereas
+            CBS and the New York Times provide the most frequently neutral headlines. Fox News and the
+            Washington Post, on the other hand, are most frequently negative.
+            <br><br>
+            Within each of the five topics, there is seem some disparity in the sentiment labels which I
+            find interesting. I won't discuss each topic specifically, but the figures below display each
+            topic and source clearly.
+          </p>
+        </div>
+
+        <table style="margin-left:auto;margin-right:auto;">
+          <tr>
+            <td width="420">
+              <b>Sentiment Analysis Output: VADER Algorithm</b>
+              <img src="/img/topic_modeling/Overall Sentiments VADER.png" style="width:750px;">
+              <br><br>
+            </td>
+          </tr>
+          <tr>
+            <td width="420">
+              <b>Sentiment Analysis Output for Five Chosen Topics: VADER Algorithm</b>
+              <img src="/img/topic_modeling/VADER Topic Sentiments.png" style="width:750px;">
+            </td>
+          </tr>
+        </table>
+
+        <br><br>
+
+        <div class="container">
+          <p style="text-align:left;">
+            <b> TextBlob </b><br><br>
+            Interestingly, the sentiment analysis results were strikingly different for TextBlob than for
+            the VADER algorithm. TextBlob was
+            considerably more likely to label headlines as neutral, while almost never labeling a headline
+            as negative. When evaluating the source code, the only considerable difference
+            I could see between how the two models perform were that they each used different dictionaries and
+            and thus the emotional words and associated weights would be different. As my analyses are unsupervised,
+            its difficult to quantitatively evaluate the performance of each model, however I found VADER
+            algorithm to be more accurate upon personal evaluation.
+            <br><br>
+            For TextBlob I've chosen to present the overall polarity (sentiment) scores as well as the
+            subjectivity scores. For the polarity measure, scores are between [-1, 1]. Values less than zero are defined
+            as having a negative sentiment, while scores greater than zero show positive sentiment. A score of zero
+            represents neutral. Subjectivity scores fall between [0, 1] with 0 = 'very objective' and 1 =
+            'very subjective'.
+            <br><br>
+            In the images below, its apparent that as headlines become increasingly
+            polar (emotional), they become more subjective. I've also included box plot figures below to more
+            accurately present the polarity and subjectivity data. The median headlines for each source is relatively
+            neutral in sentiment, with CBS and the New York Times displaying the tightest distribution around the
+            median. For subjectivity data, CBS and the New York Times show the highest level of objectivity (least
+            subjective) in their headlines, while USA Today and the Washington Post display more subjective headlines
+            (although still relatively objective).
+          </p>
+        </div>
+
+        <table style="margin-left:auto;margin-right:auto;">
+          <tr>
+            <td width="420">
+              <b>Polarity by Subjectivity Scores for each News Source: TextBlob</b>
+              <br>
+              <img src="/img/topic_modeling/Polarity by Subjectivity.png" style="width:800px;">
+              <br><br>
+            </td>
+          </tr>
+          <tr>
+            <td width="420">
+              <b>Boxplot view of Subjectivity and Polarity Scores for News Headlines</b>
+              <img src="/img/topic_modeling/BoxPlots.png" style="width:800px;">
+            </td>
+          </tr>
+        </table>
+
+        <div class="container">
+          <br>
+          <hr>
+        <h4 style="text-align:center;"><br>Closing</h4>
+          <p style="text-align:left;">
+            Overall I felt that the results from this project were very interesting. I'd like to continue
+            working on it, and see what I can do to evaluate the entirety of the news articles more accurately.
+            It may be benficial to explore different topic modeling algorithms such as HDP and NMF which I plan to
+            study next. There are also many  other sentiment analysis algorithms which may be better suited for
+            longer text input such as entire news articles.
+            <br><br>
+          <br><br>
+          </p>
+        </div>
+
+
+     </body>
+  </html>
+
+    </div>
+    
+    <footer class="footer">
+  <div class="container">
+    <div class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+    <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+
+  </body>
+</html>
