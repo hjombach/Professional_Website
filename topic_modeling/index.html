@@ -84,7 +84,7 @@ Masters in Data Science 2022">
      <body>
 
        <h4 style="text-align:center;"><br>
-         Investigating Bias Between Popular News Sources with Unsupervised<br>
+         Investigating Emotional Bias Between Popular News Sources with Unsupervised<br>
          Topic Modeling and Sentiment Analysis.
        </h4>
        <div class="container">
@@ -101,19 +101,21 @@ Masters in Data Science 2022">
             in America to investigate whether different sources display differing sentiments when
             covering the same topics. Additionally, I was curious whether or not news outlets are
             overly subjective in their presentation of events, instead of 'sticking to the facts'.
-            The algorithms used in this project allowed me to investigate both the sentiment and objectivity of news headlines.
+            The algorithms used in this project allowed me to investigate both the sentiment and
+            objectivity of news headlines.
           </p>
        </div>
 
        <h4 style="text-align:center;">Data Collection</h4>
        <div class="container">
          <p style="text-align:left;">
-             <b>News Articles</b><br><br>
-             The datasets used for this project are the NELA-GT-2018, 2019, and 2020 datasets from the Harvard Dataverse.
+             <b>News Articles</b>
+             <br><br>
+             The dataset used for this project is the NELA-GT-2020 datasets from the Harvard Dataverse.
              For my investigation, I filtered the data to include only articles published by
              six popular news sources in the United States: CBS, CNN, Fox News, The New York Times, USA Today,
-             and the Washington Post. Due to the size of the dataset I randomly selected 3,000 articles from each news source that fell within this
-             time period. Below is a snapshot of the data prior to any text preprocessing.
+             and the Washington Post. Due to the size of the dataset I randomly selected 3,000 articles from each news source.
+             Below is a snapshot of the data prior to any text preprocessing.
              <br>
           </p>
             <img src="/img/topic_modeling/data_preview.png" style="width:850px;"><br>
@@ -130,16 +132,20 @@ Masters in Data Science 2022">
        <h4 style="text-align:center;">Data Preparation</h4>
        <div class="container">
          <p style="text-align:left;">
-           <b>Text Preprocessing</b><br><br>
-           The functions used to preprocess the text were available NLTK library.<br><br>
-           To prepare the data, I performed the standard text preprocessing steps prior to
+           <b>Text Preprocessing</b>
+           <br><br>
+           The functions used to preprocess the text are available NLTK library.
+           <br><br>
+           To prepare the data, I performed standard text preprocessing steps prior to
            passing the data into my models. This included stop word removal, contraction
-           expansion, converting to lowercase, word lemmatization, followed by word
-           tokenization.  <br><br>
+           expansion, converting to lowercase, and subsequently word tokenization. After
+           tokenization, bigrams and trigrams were created to account for potential common phrases
+           that may occur together. Finally word lemmatization was performed on the tokenized text.
+           <br><br>
            The Gensim package was then used to create a dictionary of tokens. The dictionary was
            subsequently filtered to exclude any tokens that appeared in less than 15 headlines and
-           more than 50% of the headlines, indicating they may not be beneficial to separate topics
-           due their frequency. <br><br>
+           more than 50% of the headlines, suggesting they may not be beneficial to separate topics.
+           <br><br>
            Following the text preprocessing, I created two different corpus objects to pass into my
            topic models. These were represented by the commonly used Bag of Words and Term Frequency
            - Inverse Document Frequency matrices.
@@ -153,24 +159,26 @@ Masters in Data Science 2022">
         <div class="container">
           <p style="text-align:left;">
             <br>
-            <b>Latent Dirichlet Allocation (LDA)</b><br><br>
+            <b>Latent Dirichlet Allocation (LDA)</b>
+            <br><br>
             LDA is an unsupervised topic modeling algorithm. It assumes text data is a mixture of topics
             which themselves have probabilities corresponding to specific words. Thus the representation of each
             topic is a combination  of words, instead of a single word. The LDA algorithm evaluates the words
-            in each document and labels each document as a combination of topics which sum to one. The document can
-            then be assigned to the topic which composes the majority of the document. I've read conflicting opinions
-            on whether or not using the TF-IDF corpus as input into LDA models is appropriate,
-            however when trying it out I felt that it performed better than the Bag of Words corpus.
+            in each document and labels each document as a combination of topics, in which the sum of the topics contribution
+            sum to one. The document can then be assigned to the topic which composes the majority of the document.
+            I've read conflicting opinions on whether or not using the TF-IDF corpus as input into LDA models is appropriate,
+            however I have used the topic modeling output from the Bag of Words dictionary regardless.
             <br><br>
-            <b>Latent Semantic Indexing (LSI)</b><br><br>
+            <b>Latent Semantic Indexing (LSI)</b>
+            <br><br>
             LSI is another unsupervised topic modeling algorithm to learn hidden topics in text.
-            It reduces the dimensionality of
-            the corpus matrix via Singular Value Decomposition into a 'k' dimensional matrix, where k is the number of topics for the
-            document set. The rows of this matrix represents document vectors with each column (topic) coordinate
-            representing the role that topic plays in that document. Similar documents (in terms of topics)
-            are thus nearer to each other within the k-dimensional space. The output of the LSI algorithm
-            is different than the LDA models, in that it does not provide dominant topics for each document. It
-            provides an overall set of topics that encompass the document set and groups similar documents together in space.
+            It reduces the dimensionality of the corpus matrix via Singular Value Decomposition into a 'k' dimensional
+            matrix, where k is the number of topics for the document set. The rows of this matrix represents document
+            vectors with each column (topic) coordinate representing the role that topic plays in that document.
+            Similar documents (in terms of topics) are thus nearer to each other within the k-dimensional space.
+            The output of the LSI algorithm is different than the LDA models, in that it does not provide dominant
+            topics for each document. It provides an overall set of topics that encompass the document set and groups
+            similar documents together in space.
             <br><br>
           </p>
         </div>
@@ -179,7 +187,8 @@ Masters in Data Science 2022">
         <div class="container">
           <p style="text-align:left;">
             <br><br>
-            <b>Parameter Selection</b><br><br>
+            <b>Parameter Selection</b>
+            <br><br>
             For each model I used the coherence score for each topic number to evaluate
             the model performance. In general, the higher the coherence the better the model.
             Additionally, the LDA models can be evaluated with the
@@ -209,7 +218,9 @@ Masters in Data Science 2022">
 
         <div class="container">
           <p style="text-align:left;">
-            <br><b>Topics</b><br><br>
+            <br>
+            <b>Topics</b>
+            <br><br>
             Each model produced the number of specified topics. As mentioned above, the
             LDA models assign each document to a specific topic, whereas the LSI model provides
             a set of topics for the entire document set. Below are snapshots of the topics
@@ -218,7 +229,7 @@ Masters in Data Science 2022">
             component analysis to reduce the feature space and plot the topics onto 2-D space. This
             visualization indicates how well the topics separate. The goal is to minimize the overlap
             between different topics. There is some overlap within my visualization, however for this
-            project I felt comfortable continuing with the model. 
+            project I felt comfortable continuing with the model.
             <br><br>
           </p>
         </div>
@@ -247,7 +258,7 @@ Masters in Data Science 2022">
         </table>
         <br><br>
 
-        <h4 style="text-align:center;">Visualizing the LDA TF-IDF Topic Model</h4>
+        <h4 style="text-align:center;">Visualizing the LDA Bag of Words Topic Model</h4>
         <br>
         <table style="margin-left:auto;margin-right:auto;">
           <tr>
@@ -265,12 +276,13 @@ Masters in Data Science 2022">
         <h4 style="text-align:center;"><br>Sentiment Analysis</h4>
           <p style="text-align:left;">
             <br>
-            Before performing sentiment analysis I looked through the topics output by the LDA TF-IDF topic
+            Before performing sentiment analysis I looked through the topics output by the LDA Bag of Words topic
             model and selected 5 topics that I thought may present conflicting opinions between different
             news sources. I then used two sentiment analysis algorithms (VADER and TextBlob) to evaluate
             the news headlines within my dataset.
             <br><br>
-            <b>Valence Aware Dictionary and sEntiment Reasoner (VADER)</b><br><br>
+            <b>Valence Aware Dictionary and sEntiment Reasoner (VADER)</b>
+            <br><br>
             VADER is a commonly used lexicon and rule-based algorithm, which was initially developed
             for analysis of social media posts, however has shown to perform well with other types of text.
             To perform sentiment analysis, I passed in the
@@ -288,7 +300,8 @@ Masters in Data Science 2022">
             a negative sentiment, whereas scores &#62; 0.05 indicate positive sentiment. Scores within
             [-0.05, 0.05] are define as neutral sentiments.
             <br><br>
-            <br><b>TextBlob</b><br><br>
+            <br><b>TextBlob</b>
+            <br><br>
             TextBlob is another lexicon and rule-based algorithm. It utilizes the NLTK and pattern
             library to perform a wide variety of NLP tasks. For the sentiment analysis, it largely
             performs the same steps as the VADER algorithm, however uses a different dictionary with the
@@ -303,12 +316,28 @@ Masters in Data Science 2022">
 
         <div class="container">
           <p style="text-align:left;">
-            <b> VADER </b><br><br>
-            The output for the VADER is presented in the figures below. Displayed is the overall
+            <b> VADER </b>
+            <br><br>
+            Below is an image of the output from the VADER algorithm. Each headline is given a label as displaying
+            positive, neutral, or negative sentiment.<br>
+          </p>
+            <table style="margin-left:auto;margin-right:auto;">
+              <tr>
+                <td width="420">
+                  <img src="/img/topic_modeling/VADER Example.png" style="width:750px;">
+                  <br><br>
+                </td>
+              </tr>
+            </table>
+            <p style="text-align:left;">
+            <br>
+            The combined output for the VADER is presented in the figures below. Displayed is the overall
             sentiments of all given headlines in the data as well as the sentiments of five topics
-            selected from the LDA TF-IDF topic model. The sentiment graphs for each topic are
-            adjusted for the number of headlines published within that topic by each source to
-            more appropriately compare.
+            selected from the LDA Bag of Words topic model. The title of each graph is the topic number
+            followed by the keywords associated with that topic. Additionally, each topic references a
+            single headline which is most representative of said topic. This is also includes in the title of
+            each graph. These graphs are also adjusted for the number of headlines published within that topic
+            by each source to more appropriately compare.
             <br><br>
             For the most part, it seems that the majority sentiment is actually neutral, which is somewhat
             surprising to me. However this is using the predefined threshold of 0.05 to define
@@ -345,7 +374,8 @@ Masters in Data Science 2022">
 
         <div class="container">
           <p style="text-align:left;">
-            <b> TextBlob </b><br><br>
+            <b> TextBlob </b>
+            <br><br>
             Interestingly, the sentiment analysis results were strikingly different for TextBlob than for
             the VADER algorithm. TextBlob was
             considerably more likely to label headlines as neutral, while almost never labeling a headline
@@ -402,8 +432,6 @@ Masters in Data Science 2022">
           <br><br>
           </p>
         </div>
-
-
      </body>
   </html>
 
