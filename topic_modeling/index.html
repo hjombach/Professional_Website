@@ -84,27 +84,52 @@ Masters in Data Science 2022">
      <body>
 
        <h4 style="text-align:center;"><br>
-         Investigating Emotional Bias Between Popular News Sources with Unsupervised<br>
+         Investigating Bias Between Popular News Sources with Unsupervised<br>
          Topic Modeling and Sentiment Analysis.
        </h4>
        <div class="container">
          <p style = "text-align:left;"><br>All analyses done using Python.</p>
          <h4 style="text-align:center;">Background</h4>
-          <p style = "text-align:left;">
-            The media plays a vital role in society, keeping people informed and educated.
-            However news is always presented through the perspective of the educator, naturally
-            leading to informational bias. It's widely accepted throughout the United States that
-            the majority of mainstream news sources display political bias, with the majority of
-            sources accused of displaying bias in favor of liberal idealogy.
-            <br><br>
-            For this project I aimed to evaluate the news headlines of six mainstream media outlets
-            in America to investigate whether different sources display differing sentiments when
-            covering the same topics. Additionally, I was curious whether or not news outlets are
-            overly subjective in their presentation of events, instead of 'sticking to the facts'.
-            The algorithms used in this project allowed me to investigate both the sentiment and
-            objectivity of news headlines.
-          </p>
        </div>
+
+       <table style="margin-left:auto;margin-right:auto;">
+         <tr>
+           <td width="470">
+             <p style = "text-align:left;">
+               The media plays a vital role in society, keeping people informed and educated. What
+               the media covers provides citizens knowledge of current and important events. What
+               the media covers, however, can also lead to a disproportionate idea of how frequent
+               or significant an event may be, also referred to as the availability heuristic.
+               Recently, there has been a large emphasis on 'doom scrolling', or
+               spending considerable amounts of time focusing on negative news. This is not without
+               consequences, as research has started to show how news can not only shape our political
+               believes, such as attides towards immigrants and
+               <a href="https://www.sciencedirect.com/science/article/pii/S0261517716301030">other countries</a>
+               but can potentially itself influence the health of the
+               <a href="https://www.tandfonline.com/doi/abs/10.1080/1461670X.2015.1089183">economy</a>
+               as well as the mental and physical health of the consumer.
+               <br><br>
+               Information is always presented through the perspective of the educator, naturally
+               leading to informational bias. It's widely accepted throughout the United States that
+               the majority of mainstream news sources display political bias. Although bias is natural
+               and unavoidable, its important to understand the potential biases you may be subjected to in
+               information you receive. Interestingly, data from
+               <a href="https://news.gallup.com/poll/319724/bias-others-news-greater-concern-bias-own-news.aspx">Gallup</a>
+               shows that the majority of Americans have greater concern that news other people receive may be biased,
+               than concern that the news they themselves take in may be biased.
+               <br><br>
+               For this project I aimed to evaluate the news headlines of six mainstream media outlets
+               in America to investigate what topics these sources tend to cover, and whether different
+               sources display differing sentiments when covering the same topics. Additionally, I was
+               curious whether or not news outlets are overly subjective in their presentation of events,
+               instead of 'sticking to the facts'. The algorithms used in this project allowed me to
+               investigate both the sentiment and objectivity of news headlines.
+           <td width="300"><img src="/img/topic_modeling/MediaCoverage.png" style="width:360px;"><br>
+             <a href="https://www.pewresearch.org/journalism/2020/01/24/americans-are-divided-by-party-in-the-sources-they-turn-to-for-political-news/">Image Source</a></p>
+           </td>
+         </tr>
+       </table>
+
 
        <h4 style="text-align:center;">Data Collection</h4>
        <div class="container">
@@ -212,7 +237,7 @@ Masters in Data Science 2022">
           <p style="text-align:left;">
             Because these models are unsupervised, however, its important to visually inspect the
             created models by each algorithm. After doing this, I decided to select 35 topics for
-            both LDA models, and 30 topics for the LSI model.
+            LDA Bag of Words model, 60 topics for the LDA TF-IDF model, and 50 topics for the LSI model.
           </p>
         </div>
 
@@ -283,9 +308,9 @@ Masters in Data Science 2022">
             <br><br>
             <b>Valence Aware Dictionary and sEntiment Reasoner (VADER)</b>
             <br><br>
-            VADER is a commonly used lexicon and rule-based algorithm, which was initially developed
-            for analysis of social media posts, however has shown to perform well with other types of text.
-            To perform sentiment analysis, I passed in the
+            VADER is a commonly used lexicon and rule-based algorithm associated with the NLTK library. It was
+            initially developed for analysis of social media posts, however has shown to perform well with
+            other types of text. To perform sentiment analysis, I passed in the
             unprocessed headlines, and the VADER algorithm performs the preprocessing steps itself. These
             preprocessing steps are comparable to the steps I performed for topic modeling above.
             <br><br>
@@ -423,11 +448,18 @@ Masters in Data Science 2022">
           <hr>
         <h4 style="text-align:center;"><br>Closing</h4>
           <p style="text-align:left;">
-            Overall I felt that the results from this project were very interesting. I'd like to continue
-            working on it, and see what I can do to evaluate the entirety of the news articles more accurately.
-            It may be benficial to explore different topic modeling algorithms such as HDP and NMF which I plan to
-            study next. There are also many  other sentiment analysis algorithms which may be better suited for
-            longer text input such as entire news articles.
+            Overall I felt that the results from this project were very interesting as their do seem to
+            be some differences between sources in their sentiments toward different topics. 2020 was a unique year
+            which seems to have had a few topics dominate the headlines more than other years, so it'd be interesting
+            to extend this analysis to earlier years.
+            <br><br>
+            Ideally, I'd like to continue working on this while researching different algorithms which would enable me to
+            more precisely measure 'doomscrolling'. One limitation of
+            unsupervised learning is that there are no labels that I can use to train the algorithms and improve the
+            sentiment classification of each headline. Further, I'd like to find methods in which I can evaluate the entirety of the
+            news articles more accurately, not just the headlines. It may be benficial to explore different
+            topic modeling algorithms such as HDP and NMF which I plan to study next. There are also many other sentiment
+            analysis algorithms which may be better suited for longer text input such as entire news articles.
             <br><br>
           <br><br>
           </p>
